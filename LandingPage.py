@@ -2,29 +2,24 @@
 
 import tkinter as tk
 import requests
-from LandingPage import LandingPage
-from tkinter.messagebox import *
-import webbrowser
 
-class FullScreenApp(object):
+class LandingPage(object):
     urls = {'api_login':'http://127.0.0.1:8000/api/login'}
-    LARGE_FONT= ("Helvetica", 16)
-    NORM_FONT = ("Helvetica", 10)
-    SMALL_FONT = ("Helvetica", 8)
-    def __init__(self, **kwargs):
-        self.root=tk.Tk()
+
+    def __init__(self, root, data):
+        self.root = root
+        self.token = data['token']
 
         self.root_frame = tk.Frame(self.root)
         self.root_frame.pack()
 
-        w = tk.Label(self.root_frame, text="Login :: SK Retail System - POS", font=("Helvetica", 16))
+        w = tk.Label(self.root_frame, text="SK Retail System Screen 2", font=("Helvetica", 16))
         w.pack(padx=5, pady=5)
-        self.root.attributes('-fullscreen', True)
         form_layout = tk.Frame(self.root_frame, borderwidth=2, relief="groove")
         form_layout.pack(padx=20, pady=20)
         self.create_menu(self.root)
         self.create_login_form(form_layout)
-        self.root.mainloop()
+
     def create_menu(self, root):
         def open_admin_site():
             chromedir= 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
@@ -75,11 +70,8 @@ class FullScreenApp(object):
                 lab_msg.config(text=error)
             except:
                 try:
-                    self.token = r_json['token']
+                    FullScreenApp.token = r_json['token']
                     lab_msg.config(text='Logged in!')
-                    data={'urls':FullScreenApp.urls, 'token':self.token}
-                    self.root_frame.pack_forget()
-                    LandingPage(self.root, data)
                 except Exception as e:
                     lab_msg.config(text=e)            
 
@@ -114,4 +106,3 @@ class FullScreenApp(object):
         b2 = tk.Button(row, text='Exit', command=root.quit, width=10)
         b2.pack(side=tk.LEFT, padx=5, pady=5)
         row.pack(padx=10, pady=10)
-app=FullScreenApp()
