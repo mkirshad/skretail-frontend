@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\desktop",
+    "\\desktop\\__pycache__"
   ],
-  "SelectedNode": "\\program.py",
+  "SelectedNode": "\\desktop\\program.py",
   "PreviewInSolutionExplorer": false
 }
